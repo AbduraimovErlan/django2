@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<div>
+    <div class="container button__container">
+    <a href="/books/" class="btn btn-primary">Books</a>
+    </div>
+    <h2><a href="/books/{{ show.id }}">{{ book.title }}</a></h2>
+    <p>{{ book.description }}</p>
+    <img src="{{ book.image.url }}" alt="">
+    <p>{{ book.date_filmed }}</p>
+</div>
+</body>
+</html>
