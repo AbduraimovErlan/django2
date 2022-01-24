@@ -9,12 +9,26 @@
     <div class="container button__container">
     <a href="/books/" class="btn btn-primary">Books</a>
     </div>
-    <h2><a href="/books/{{ book.id }}">{{ book.title }}</a></h2>
-    <img src="{{ book.image.url }}" alt="">
-    <p>{{ book.description }}</p>
+    <h2><a href="/books/{{ object.id }}">{{ object.title }}</a></h2>
+    <img src="{{ object.image.url }}" alt="">
+    <p>{{ object.description }}</p>
+
+    <div>
+        <h2>Comments:</h2>
+        <ul>
+            {% for i in object.book_comment.all %}
+            <li>
+                <p>{{ i.text }}</p>
+                <p>{{ i.created_date}}</p>
+
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
 
 </div>
-<button type="button" class="btn btn-primary"><a href="/books/{{ book.id }}/update/">Change</a></button>
-<button type="button" class="btn btn-primary"><a href="/books/{{ book.id }}/delete/">Delete</a></button>
+<button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/update/">Change</a></button>
+<button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/delete/">Delete</a></button>
 </body>
 </html>
