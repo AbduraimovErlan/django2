@@ -9,12 +9,15 @@ URL = "https://animekisa.tv/latest/1"
 HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0'
+
+
 }
 
 @csrf_exempt
 def get_html(url, params=''):
     req = requests.get(url, headers=HEADERS, params=params)
     return req
+
 
 @csrf_exempt
 def get_data(html):
@@ -25,12 +28,11 @@ def get_data(html):
     for item in items:
         anime.append(
             {
-                'title': item.find('div', class_='episode-box-2').get_text(),
-                'image': HOST + item.find('div', class_="image-box").find('img').get('src')
+                'title': item.find('div', class_='title-box-2').get_text(),
+                'image': HOST + item.find('div', class_='image-box').find('img').get('src')
             }
         )
     return anime
-
 
 @csrf_exempt
 def parser():

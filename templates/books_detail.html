@@ -6,29 +6,83 @@
 </head>
 <body>
 <div>
+    <div class="button__container">
+        <button type="button" class="btn btn-primary"><a href="/books/">Books</a></button>
+        <button type="button" class="btn btn-primary"><a href="/add-books/">Add Books</a></button>
+    </div>
+
     <div class="container button__container">
-    <a href="/books/" class="btn btn-primary">Books</a>
     </div>
     <h2><a href="/books/{{ object.id }}">{{ object.title }}</a></h2>
     <img src="{{ object.image.url }}" alt="">
     <p>{{ object.description }}</p>
 
-    <div>
-        <h2>Comments:</h2>
+     <div>
+        <h2>Rating:</h2>
         <ul>
-            {% for i in object.book_comment.all %}
+            {% for i in object.book_rating.all %}
             <li>
-                <p>{{ i.text }}</p>
-                <p>{{ i.created_date}}</p>
+                <p>{{ i.rating }}</p>
 
             </li>
             {% endfor %}
-
         </ul>
     </div>
+<!--    </div>-->
+<!--        <h2>Comments: </h2>-->
+<!--        <ul>-->
+<!--            {% for i in object.comments.all %}-->
+<!--            <li>-->
+<!--                <p>{{ i.body }}</p>-->
+<!--                <p>{{ i.name }}</p>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
 
+
+{% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+{% endwith %}
+
+{% for i in object.comments.all %}
+    <div class="comment">
+        <p class="info">
+            Comment {{ forloop.counter }} by {{ i.name }}
+            {{ i.created }}
+        </p>
+        {{ i.body|linebreaks }}
+    </div>
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+
+    {% if new_comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    <h2>Add a new comment</h2>
+    <form action="/add-comment/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add Comment" />
+</form>
+{% endif %}
+
+
+
+    <div class="card-body body__button">
+        <button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/update/">Change   {{object.title}}</a></button>
+        <button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/delete/">Delete   {{object.title}}</a></button>
+    </div>
 </div>
-<button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/update/">Change</a></button>
-<button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/delete/">Delete</a></button>
 </body>
 </html>
+
+
+
+
+
+
+

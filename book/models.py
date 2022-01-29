@@ -11,11 +11,27 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-class BookComment(models.Model):
-    books = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="book_comment")
+class Book_Comment(models.Model):
+    post = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=80)
+    body = models.TextField()
+    email = models.EmailField(null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
+    active = models.BooleanField(default=True, null=True)
 
-    text = models.TextField()
-    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.books.title
+        return 'Comment by {} on {}'.format(self.name, self.post)
+
+
+class BookRating(models.Model):
+    RATING_CHOICE = (
+        ('1 *', '1 *'),
+        ('2 **', '2 **'),
+        ('3 ***', '3 ***'),
+        ('4 ****', '4 ****'),
+        ('5 *****', '5 *****')
+    )
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="book_rating")
+    rating = models.CharField(choices=RATING_CHOICE, max_length=100)

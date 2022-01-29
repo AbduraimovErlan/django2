@@ -6,7 +6,7 @@ from . import models, forms
 from django.views import generic
 
 class ShowsListView(generic.ListView):
-    template_name = "shows_list.html"
+    template_name = "shows_list_p.html"
     queryset = models.TVShow.objects.all()
 
     def get_queryset(self):
@@ -24,7 +24,7 @@ class ShowsDetailView(generic.DetailView):
 
     def get_object(self, **kwargs):
         shows_id = self.kwargs.get("id")
-        return  get_object_or_404(models.TVShow, id=shows_id)
+        return get_object_or_404(models.TVShow, id=shows_id)
 
 
 # def shows_detail(request, id):
