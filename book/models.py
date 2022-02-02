@@ -35,3 +35,31 @@ class BookRating(models.Model):
     )
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="book_rating")
     rating = models.CharField(choices=RATING_CHOICE, max_length=100)
+
+
+class Expert(models.Model):
+    PERFORMANCE_CHOICE = (
+        ('Doctor', 'Doctor'),
+        ('Writer', 'Writer'),
+        ('Scientist', 'Scientist'),
+        ('ACTOR', 'ACTOR'),
+        ('Artist', 'Artist'),
+    )
+    expert = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='expert')
+    firstName = models.CharField(max_length=100)
+    lastName = models.CharField(max_length=100)
+    middleName = models.CharField(max_length=100)
+    performance = models.CharField(choices=PERFORMANCE_CHOICE, max_length=100)
+    info = models.TextField()
+
+
+    def __str__(self):
+        return 'Expert {} recommends book {}'.format(self.firstName, self.expert)
+
+
+
+
+class ExpertRecommendation(models.Model):
+    bookExpert = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="bookExpert")
+    text = models.TextField()
+    expertRecommendation = models.ForeignKey(Expert, on_delete=models.CASCADE, related_name="expertRecommendation")

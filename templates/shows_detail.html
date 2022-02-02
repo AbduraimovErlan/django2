@@ -5,11 +5,16 @@
     <title>Show</title>
 </head>
 <body>
+<div class="button__container">
+        <button type="button" class="btn btn-primary"><a href="/shows1/">Shows</a></button>
+        <button type="button" class="btn btn-primary"><a href="/add-shows1/">Add Shows</a></button>
+    </div>
+
 <div>
     <div class="container button__container">
-    <a href="/shows/" class="btn btn-primary">Shows</a>
+    <a href="/shows1/" class="btn btn-primary">Shows</a>
     </div>
-    <h2><a href="/shows/{{ object.id }}">{{ object.title }}</a></h2>
+    <h2><a href="/shows1/{{ object.id }}">{{ object.title }}</a></h2>
     <img src="{{ object.image.url }}" alt="">
     <p>{{ object.quantity }}</p>
     <p>{{ object.genre }}</p>
@@ -17,22 +22,20 @@
     <p>{{ object.description }}</p>
 
 
-    <div>
-        <h2>Comments:</h2>
+    </div>
+        <h2>Comments: </h2>
         <ul>
-            {% for i in object.show_comment.all %}
+            {% for i in object.comments.all %}
             <li>
-                <p>{{ i.text }}</p>
-                <p>{{ i.created_date}}</p>
-
+                <p>{{ i.body }}</p>
+                <p>{{ i.name }}</p>
             </li>
             {% endfor %}
-
         </ul>
     </div>
 
 </div>
-<button type="button" class="btn btn-primary"><a href="/shows/{{ object.id }}/update/">Change</a></button>
-<button type="button" class="btn btn-primary"><a href="/shows/{{ object.id }}/delete/">Delete</a></button>
+<button type="button" class="btn btn-primary"><a href="/shows1/{{ object.id }}/update/">Change</a></button>
+<button type="button" class="btn btn-primary"><a href="/shows1/{{ object.id }}/delete/">Delete</a></button>
 </body>
 </html>

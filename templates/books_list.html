@@ -45,7 +45,8 @@
             <img src="{{ i.image.url }}" class="card-img-top post__img" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ i.title }}</h5>
-                    <p class="card-text">{{ i.description }}</p>
+                    <p class="card-text" >{{i.description|linebreaks|truncatewords:50}}</p>
+
                     <a href="/books/{{ i.id }}/" class="btn btn-primary">Go detail</a>
                 </div>
             </div>

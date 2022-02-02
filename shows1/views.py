@@ -6,7 +6,7 @@ from . import models, forms
 from django.views import generic
 
 class ShowsListView(generic.ListView):
-    template_name = "shows_list_p.html"
+    template_name = "shows_list.html"
     queryset = models.TVShow.objects.all()
 
     def get_queryset(self):
@@ -15,9 +15,9 @@ class ShowsListView(generic.ListView):
 
 
 # def shows_all(request):
-#     shows = models.TVShow.objects.all()
+#     shows1 = models.TVShow.objects.all()
 #     return render(request, 'shows_list.html',
-#                   {'shows': shows})
+#                   {'shows1': shows1})
 
 class ShowsDetailView(generic.DetailView):
     template_name = "shows_detail.html"
@@ -37,7 +37,7 @@ class ShowsCreateView(generic.CreateView):
     template_name = "add_shows.html"
     form_class = forms.ShowForm
     queryset = models.TVShow.objects.all()
-    success_url = "/shows/"
+    success_url = "/shows1/"
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -54,7 +54,7 @@ class ShowsCreateView(generic.CreateView):
 #         if form.is_valid():
 #             form.save()
 #             # return HttpResponse('Show created')
-#             return redirect(reverse("shows:shows_all"))
+#             return redirect(reverse("shows1:shows_all"))
 #
 #     else:
 #         form = forms.ShowForm()
@@ -63,7 +63,7 @@ class ShowsCreateView(generic.CreateView):
 class ShowsUpdateView(generic.UpdateView):
     template_name = "show_update.html"
     form_class = forms.ShowForm
-    success_url = "/shows/"
+    success_url = "/shows1/"
 
     def get_object(self, *kwargs):
         shows_id = self.kwargs.get("id")
@@ -84,7 +84,7 @@ class ShowsUpdateView(generic.UpdateView):
 #         if form.is_valid():
 #             form.save()
 #             # return HttpResponse('Show Updated Successfully')
-#             return redirect(reverse("shows:shows_all"))
+#             return redirect(reverse("shows1:shows_all"))
 #     else:
 #         form = forms.ShowForm(instance=show_object)
 #     return render(request, 'show_update.html', {'form': form, 'object': show_object})
@@ -93,7 +93,7 @@ class ShowsUpdateView(generic.UpdateView):
 
 class ShowsDeleteView(generic.DeleteView):
     template_name = "confirm_delete.html"
-    success_url = "/shows/"
+    success_url = "/shows1/"
 
     def get_object(self, **kwargs):
         shows_id = self.kwargs.get("id")
@@ -104,6 +104,6 @@ class ShowsDeleteView(generic.DeleteView):
 #     show_object = get_object_or_404(models.TVShow, id=id)
 #     show_object.delete()
 #     # return HttpResponse('Show Deleted')
-#     return redirect(reverse("shows:shows_all"))
+#     return redirect(reverse("shows1:shows_all"))
 
 
