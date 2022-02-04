@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'parser_app',
     'custom_users',
     'product',
+    'cloth',
 
 ]
 
