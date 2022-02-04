@@ -49,3 +49,18 @@ class OrderCL(models.Model):
 
     def __str__(self):
         return self.product.name
+
+
+
+class ProductCL_Comment(models.Model):
+    postCL = models.ForeignKey(ProductCL, on_delete=models.CASCADE, related_name='commentsCL', null=True)
+    nameCL = models.CharField(max_length=80, null=True)
+    bodyCL = models.TextField(null=True)
+    emailCL = models.EmailField(null=True)
+    createdCL = models.DateTimeField(auto_now_add=True, null=True)
+    updatedCL = models.DateTimeField(auto_now=True, null=True)
+    activeCL = models.BooleanField(default=True, null=True)
+
+
+    def __str__(self):
+        return 'Comment by {} on {}'.format(self.nameCL, self.postCL)

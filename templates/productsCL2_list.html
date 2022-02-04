@@ -1,20 +1,58 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
+    <title>Books</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css/' %}" />
 </head>
 <body>
-<div>
-    <ul>
-        {% for i in object_list %}
-        <li>
-            <h2><a href="/productsCL2/{{ i.id }}">{{ i.name }}</a></h2>
-            <img src="{{ i.image.url }}" alt="">
-        </li>
-        {% endfor %}
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="/productsCL0/">Главная страница</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/productsCL/">мужская одежда</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/productsCL1/">Женская одежда</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/productsCL2/">Детская одежда</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/productsCL3/">Унисекс</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Disabled</a>
+      </li>
     </ul>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Закажи у нас ! Проверь качество и оставь отзыв )</p>
+    <a href="/productsCLCOMM/" class="btn btn-primary">Go comment</a>
+  </div>
 </div>
+{% for i in object_list %}
+<div class="card mb-3" style="max-width: 1400px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ i.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/productsCL/{{ i.id }}">{{ i.name }}</a></h5>
+          <h2></h2>
 
+        <p class="card-text">{{ i.price }} рубль</p>
+        <p class="card-text"><small class="text-muted">{{ i.date_created }}</small></p>
+          <p class="card-text">{{i.description|linebreaks|truncatewords:10}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 </body>
 </html>

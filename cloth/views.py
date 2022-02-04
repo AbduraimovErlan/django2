@@ -1,7 +1,15 @@
 from django.shortcuts import get_object_or_404
+from django.views import generic
 from django.views.generic import ListView, DetailView, CreateView
 from . import models, forms
 
+
+class ProductListViewCL0(ListView):
+    queryset = models.ProductCL.objects.filter().order_by("-id")
+    template_name = "productsCL0_list_all.html"
+
+    def get_queryset(self):
+        return models.ProductCL.objects.filter().order_by("-id")
 
 class ProductListViewCL(ListView):
     queryset = models.ProductCL.objects.filter(tags__name='male')
@@ -42,6 +50,20 @@ class ProductListViewCL3(ListView):
 
 
 
+class ProductListViewCLCOMM(ListView):
+    queryset = models.ProductCL.objects.filter().order_by("-id")
+    template_name = "productsCL_list_COMM.html"
+
+    def get_queryset(self):
+        return models.ProductCL.objects.filter().order_by("-id")
+
+
+
+
+
+
+
+
 
 class ProductDetailViewCL(DetailView):
     template_name = "productCL_detail.html"
@@ -49,6 +71,9 @@ class ProductDetailViewCL(DetailView):
     def get_object(self, **kwargs):
         productCL_id = self.kwargs.get("idCL")
         return get_object_or_404(models.ProductCL, id=productCL_id)
+
+
+
 
 
 class OrderCreateViewCL(CreateView):
@@ -59,3 +84,13 @@ class OrderCreateViewCL(CreateView):
 
     def form_valid(self, form):
         return super(OrderCreateViewCL, self).form_valid(form=form)
+
+class CommentCreateViewCL(generic.CreateView):
+    template_name = "add_comment_productsCL.html"
+    form_class = forms.CommentForm
+    queryset = models.ProductCL_Comment.objects.all()
+    success_url = "/productsCL/"
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(CommentCreateViewCL, self).form_valid(form=form)
