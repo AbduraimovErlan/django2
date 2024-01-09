@@ -2,16 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 from django.views.decorators.csrf import csrf_exempt
 
-
-HOST = "https://animekisa.tv"
-URL = "https://animekisa.tv/latest/1"
+HOST = "https://love.leboard.ru"
+URL = "https://love.leboard.ru/chat"
 
 HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0'
 
-
 }
+
 
 @csrf_exempt
 def get_html(url, params=''):
@@ -22,17 +21,18 @@ def get_html(url, params=''):
 @csrf_exempt
 def get_data(html):
     soup = BeautifulSoup(html, 'html.parser')
-    items = soup.find_all('div', class_='episode-box test')
+    items = soup.find_all('div', class_='popup_content ll-popup__chat scool')
     anime = []
 
     for item in items:
         anime.append(
             {
-                'title': item.find('div', class_='title-box-2').get_text(),
-                'image': HOST + item.find('div', class_='image-box').find('img').get('src')
+                'title': item.find('div', class_='messages_list ll-from').get_text(),
+
             }
         )
     return anime
+
 
 @csrf_exempt
 def parser():

@@ -50,15 +50,23 @@ class ProductListViewCL3(ListView):
 
 
 
-class ProductListViewCLCOMM(ListView):
-    queryset = models.ProductCL.objects.filter().order_by("-id")
-    template_name = "productsCL_list_COMM.html"
-
-    def get_queryset(self):
-        return models.ProductCL.objects.filter().order_by("-id")
 
 
 
+
+# class ProductListViewCLCOMM(generic.ListView):
+#     queryset = models.ProductCL_Comment.objects.filter().order_by("-id")
+#     template_name = "productCL_detail_.html"
+#
+#     def get_queryset(self):
+#         return models.ProductCL_Comment.objects.filter().order_by("-id")
+#
+# class ProductListViewCLCOMM11(ListView):
+#     queryset = models.ProductCL.objects.filter().order_by("-id")
+#     template_name = "productCL_detail_.html"
+#
+#     def get_queryset(self):
+#         return models.ProductCL.objects.filter().order_by("-id")
 
 
 
@@ -72,6 +80,23 @@ class ProductDetailViewCL(DetailView):
         productCL_id = self.kwargs.get("idCL")
         return get_object_or_404(models.ProductCL, id=productCL_id)
 
+
+
+class ProductDetailViewCLCOM(generic.DetailView):
+    template_name = "productCL_detail_COM.html"
+
+
+    def get_object(self, **kwargs):
+        productCL11_id = self.kwargs.get("id")
+        return get_object_or_404(models.ProductCL, id=productCL11_id)
+
+
+# class ProductDetailViewCLCOM(DetailView):
+#     template_name = "productCL_detail_COM.html"
+#
+#     def get_object(self, **kwargs):
+#         productCL11_id = self.kwargs.get("id")
+#         return get_object_or_404(models.ProductCL, id=productCL11_id)
 
 
 

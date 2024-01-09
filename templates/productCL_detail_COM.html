@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<div>
+    <div class="button__container">
+        <button type="button" class="btn btn-primary"><a href="/productsCLLL/">Books</a></button>
+        <button type="button" class="btn btn-primary"><a href="/add-books/">Add Books</a></button>
+    </div>
+
+    <div class="container button__container">
+    </div>
+    <h2><a href="/books/{{ object.id }}">{{ object.title }}</a></h2>
+    <img src="{{ object.image.url }}" alt="">
+    <p>{{ object.description }}</p>
+
+<div>
+    {% with expert.count as total_comments %}
+        <h2>
+            {{ total_comments }} Expert{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+
+    {% for i in object.expert.all %}
+        <div class="Expert">
+            <p class="info">
+                Expert {{ forloop.counter }}.   {{ i.firstName }} {{ i.lastName }} {{ i.middleName }}
+            </p>
+            <p class="info">performance:{{ i.performance }}</p>
+            {{ i.info|linebreaks }}
+        </div>
+    {% empty %}
+        <p>There are no comments yet. Open another page.</p>
+    {% endfor %}
+</div>
+
+
+
+<div>
+        {% with expert.count as total_comments %}
+        <h2>
+            {{ total_comments }} ExpertRecommendation{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+
+    {% for i in object.bookExpert.all %}
+        <div class="ExpertRecommendation">
+            <p class="info">
+                 {{ i.expertRecommendation }}
+            </p>
+            {{ i.text|linebreaks }}
+        </div>
+    {% empty %}
+        <p>There are no comments yet. Open another page.</p>
+    {% endfor %}
+</div>
+
+    <div>
+        <h2>Rating:</h2>
+        <ul>
+            {% for i in object.book_rating.all %}
+            <li>
+                <p>{{ i.rating }}</p>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+<div>
+    {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+
+    {% for i in object.comments.all %}
+        <div class="comment">
+            <p class="info">
+                Comment {{ forloop.counter }} by {{ i.name }}
+                {{ i.created }}
+            </p>
+            {{ i.body|linebreaks }}
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+
+        {% if new_comment %}
+        <h2>Your comment has been added.</h2>
+    {% else %}
+        <h2>Add a new comment</h2>
+        <form action="/add-comment/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Comment" />
+    </form>
+    {% endif %}
+</div>
+    <div class="card-body body__button">
+        <button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/update/">Change   {{object.title}}</a></button>
+        <button type="button" class="btn btn-primary"><a href="/books/{{ object.id }}/delete/">Delete   {{object.title}}</a></button>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--{% load static %}-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>ProductCL_Comment</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css/' %}" />-->
+<!--</head>-->
+<!--<body>-->
+
+<!--{% for i in object %}-->
+<!--<div class="card-group">-->
+
+<!--<div class="card">-->
+
+<!--    <div class="card-body">-->
+<!--        <h2>Comments: </h2>-->
+<!--        {% for i in object.commentsCL.all %}-->
+<!--            <div  class="comment">-->
+<!--                    <p class="info">Comment {{ forloop.counter }} by {{ i.postCL }} {{ i.createdCL }}</p>-->
+<!--                    {{ i.bodyCL|linebreaks }}-->
+<!--                </div>-->
+
+<!--                <p>{{ i.bodyCL }}</p>-->
+<!--                <p>{{ i.postCL }}</p>-->
+
+<!--      <h5 class="card-title">Card title</h5>-->
+<!--      <p> {{ i.bodyCL }}</p>-->
+<!--      <p class="card-text"><small class="text-muted">{{ i.createdCL }}</small></p>-->
+
+
+
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="card">-->
+
+<!--    <div class="card-body">-->
+
+<!--            {% with commentsCL.count as total_comments %}-->
+<!--                <h2 class="card-text" >{{ total_comments }} comment{{ total_comments|pluralize }}</h2>-->
+<!--            {% endwith %}-->
+
+
+<!--                <p class="card-text" >There are no comments yet.</p>-->
+<!--            {% endfor %}-->
+
+<!--                {% if new_comment %}-->
+<!--                <h2 class="card-text" >Your comment has been added.</h2>-->
+<!--            {% else %}-->
+<!--                <h2 class="card-text" >Add a new comment</h2>-->
+<!--                <form class="card-body" action="/add-comment-productsCL/" method="POST" enctype="multipart/form-data">-->
+<!--                {% csrf_token %}-->
+<!--                {{ form.as_p }}-->
+<!--                <input class="card-body" type="submit" value="Add Comment" />-->
+<!--            </form>-->
+<!--            {% endif %}-->
+<!--      <h5 class="card-title">Card title</h5>-->
+<!--      <p class="card-text">{{ i.bodyCL }}</p>-->
+<!--      <p class="card-text"><small class="text-muted">{{ i.createdCL }}</small></p>-->
+<!--     </div>-->
+<!--  </div>-->
+
+
+
+<!--  <div class="card">-->
+<!--    <img src="{{ i.image.url }}" class="card-img-top" alt="...">-->
+<!--    <div class="card-body">-->
+<!--      <h2><a href="/productsCLCOMM/">{{ object.name }}</a></h2>-->
+<!--      <p class="card-text"><small class="text-muted">{{ object.date_created }}</small></p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--    {% endfor %}-->
+<!--</body>-->
+<!--</html>-->

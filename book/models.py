@@ -20,10 +20,8 @@ class Book_Comment(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     active = models.BooleanField(default=True, null=True)
 
-
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
-
 
 class BookRating(models.Model):
     RATING_CHOICE = (

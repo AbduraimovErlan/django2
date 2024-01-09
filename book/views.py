@@ -7,19 +7,13 @@ from . import models, forms
 from django.views import generic
 from .models import Book
 
-class BooksListView(generic.ListView):
+class BooksLw(generic.ListView):
     template_name = "books_list.html"
     queryset = models.Book.objects.all()
     success_url = "/books/"
 
     def get_queryset(self):
         return models.Book.objects.order_by('-created_date')[:5]
-
-
-
-
-
-
 
 
 class BooksDetailView(generic.DetailView):
@@ -29,9 +23,6 @@ class BooksDetailView(generic.DetailView):
     def get_object(self, **kwargs):
         shows_id = self.kwargs.get("id")
         return get_object_or_404(models.Book, id=shows_id)
-
-
-
 
 
 class BooksCreateView(generic.CreateView):
@@ -44,8 +35,6 @@ class BooksCreateView(generic.CreateView):
         print(form.cleaned_data)
         return super(BooksCreateView, self).form_valid(form=form)
 
-
-
 class BooksUpdateView(generic.UpdateView):
     template_name = "book_update.html"
     form_class = forms.BookForm
@@ -57,9 +46,6 @@ class BooksUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         return super(BooksUpdateView, self).form_valid(form=form)
-
-
-
 
 class BooksDeleteView(generic.DeleteView):
     template_name = "book_delete.html"
